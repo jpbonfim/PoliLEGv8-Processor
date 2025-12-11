@@ -1,0 +1,19 @@
+# Vivado / Quartus
+*.jou
+*.log
+*.pb
+*.dcp
+*.bit
+*.sof
+.Xil/
+db/
+incremental_db/
+/quartus/
+
+#Ignores folder containing project requirements files
+/enunciado/
+
+#Ignore simulation results.
+/sim/*
+#Ignore compiled libraries
+/work/

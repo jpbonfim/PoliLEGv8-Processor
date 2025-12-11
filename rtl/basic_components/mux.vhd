@@ -19,6 +19,3 @@ begin
            in1 when sel = '1';
 
 end behavioral;
-
-
-
