@@ -1,6 +1,6 @@
 GHDL = ghdl
 FLAGS = --std=08 --ieee=synopsys
-WORKDIR = ./sim/ghdl-workdir
+WORKDIR = ./sim/ghdl_workdir
 WAVEDIR = ./sim/waves
 
 RTL_DIR = ./rtl
@@ -50,6 +50,9 @@ run-tb: | $(WORKDIR) $(WAVEDIR)
 	@echo "--- Rodando $(TB) ---"
 	$(GHDL) -r $(FLAGS) --workdir=$(WORKDIR) $(TB) --wave=$(WAVEDIR)/wave_$(TB).ghw --stop-time=20us
 
+# Usage: make test TB=mux_tb
+test-tb: compile-tb run-tb
+
 
 ######################        Cleanup        ######################
 
@@ -75,4 +78,4 @@ $(WORKDIR):
 $(WAVEDIR):
 	mkdir -p $(WAVEDIR)
 
-.PHONY: all compile run compile-tb run-tb clean clean-waves clean-workdir
+.PHONY: all compile run compile-tb run-tb test-tb clean clean-waves clean-workdir

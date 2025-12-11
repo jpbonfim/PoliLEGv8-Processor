@@ -1,7 +1,7 @@
 library ieee;
 use ieee.numeric_bit.all;
 
-entity mux is
+entity mux_n is
     generic (dataSize : natural := 64);
     port(
         in0  : in bit_vector(dataSize-1 downto 0);
@@ -9,11 +9,9 @@ entity mux is
         sel  : in bit;
         dOut : out bit_vector(dataSize-1 downto 0 )
        );
-end entity mux;
+end entity mux_n;
 
-
-architecture behavioral of mux is    
-
+architecture behavioral of mux_n is    
 begin 
    dOut <= in0 when sel = '0' else
            in1 when sel = '1';
