@@ -1,38 +1,57 @@
 library ieee;
-use ieee.numeric_bit.ALL;
-use std.textio.all;
+use ieee.numeric_bit.all;
+use std.textio.all; -- Required for file reading
 
-entity rom is 
-    generic(
-        addressSize : natural := 8;
-        dataSize    : natural := 8;
-        datFileName : String  := "rom.dat"
-        );
-    port(
+entity memoriaInstrucoes is
+    generic (
+        addressSize : natural := 8;   -- Address bus size
+        dataSize    : natural := 8;  -- Data word size (Width)
+        datFileName : string  := "memInstr_conteudo.dat" -- File to load
+    );
+    port (
         addr : in bit_vector(addressSize-1 downto 0);
         data : out bit_vector(dataSize-1 downto 0)
-        );
-end rom;
- 
-architecture behavioral of rom is 
-  constant depth : natural := 256; --2**addressSize;
-  type mem is array (0 to depth-1) of bit_vector(dataSize-1 downto 0); 
+    );
+end entity memoriaInstrucoes;
 
-    impure function init_mem(file_name : in string) return mem is 
-        file arquivo      : text open read_mode is file_name;
-        variable linha    : line;
+architecture behavioral of memoriaInstrucoes is
+    -- Define the memory array type
+    -- The depth is determined by 2^addressSize.
+    constant DEPTH : natural := 2**addressSize;
+    type mem_type is array (0 to DEPTH-1) of bit_vector(dataSize-1 downto 0);
+
+    -- Function to initialize memory from a file
+    -- This function runs once at the start of the simulation.
+    impure function init_mem(fileName : in string) return mem_type is
+        file     fl       : text open read_mode is fileName;
+        variable temp_mem : mem_type := (others => (others => '0'));
+        variable current_line : line;
         variable temp_bv  : bit_vector(dataSize-1 downto 0);
-        variable temp_mem : mem;
-    begin 
-        for i in mem'range loop
-            readline(arquivo, linha);
-            read(linha, temp_bv);
-            temp_mem(i) := temp_bv;
+        variable v_valid  : boolean; -- To check if read was successful
+    begin
+        -- Read file line by line
+        for i in 0 to DEPTH-1 loop
+            if not endfile(fl) then
+                readline(fl, current_line);
+                -- Attempt to read a binary string into the bit_vector
+                read(current_line, temp_bv, v_valid);
+                if v_valid then
+                    temp_mem(i) := temp_bv;
+                end if;
+            else
+                exit; -- Stop if end of file is reached before filling memory
+            end if;
         end loop;
-        file_close(arquivo);
         return temp_mem;
-    end;       
-constant rom_i : mem := init_mem(datFileName);
+    end function;
+
+    -- 3. Declare the memory signal and initialize it
+    signal mem : mem_type := init_mem(datFileName);
+
 begin
-    data <= rom_i(to_integer(unsigned(addr)));
-end behavioral;
+
+    -- Asynchronous Read Operation
+    -- The output 'data' is updated immediately when 'addr' changes.
+    data <= mem(to_integer(unsigned(addr)));
+
+end architecture behavioral;
