@@ -10,10 +10,13 @@ db/
 incremental_db/
 /quartus/
 
-#Ignores folder containing project requirements files
+# Ignores folder containing project requirements files
 /enunciado/
 
-#Ignore simulation results.
+# Ignore testbeches provided for verificarion of the project
+provided_testbenches/
+
+# Ignore simulation results.
 /sim/*
-#Ignore compiled libraries
+# Ignore compiled libraries
 /work/
