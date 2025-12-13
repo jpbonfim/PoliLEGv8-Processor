@@ -43,7 +43,7 @@ begin
 
     -- Instantiation of the 8 components (Big Endian)
     -- Component 0: Base Address + 0 -> Bits [63-56] (Most Significant Byte)
-    RAM_BANK_0: component work.memoriaDados
+    RAM_BANK_0: entity work.memoriaDados
         generic map (addressSize => addressSize, dataSize => dataSize, datFileName => datFileName)
         port map (
             clock  => clock,
@@ -54,7 +54,7 @@ begin
         );
 
     -- Component 1: Address Base + 1 -> Bits [55-48]
-    RAM_BANK_1: component work.memoriaDados
+    RAM_BANK_1: entity work.memoriaDados
         generic map (addressSize => addressSize, dataSize => dataSize, datFileName => datFileName)
         port map (
             clock  => clock,
@@ -65,7 +65,7 @@ begin
         );
 
     -- Component 2: Address Base + 2 -> Bits [47-40]
-    RAM_BANK_2: component work.memoriaDados
+    RAM_BANK_2: entity work.memoriaDados
         generic map (addressSize => addressSize, dataSize => dataSize, datFileName => datFileName)
         port map (
             clock  => clock,
@@ -76,7 +76,7 @@ begin
         );
 
     -- Component 3: Address Base + 3 -> Bits [39-32]
-    RAM_BANK_3: component work.memoriaDados
+    RAM_BANK_3: entity work.memoriaDados
         generic map (addressSize => addressSize, dataSize => dataSize, datFileName => datFileName)
         port map (
             clock  => clock,
@@ -87,7 +87,7 @@ begin
         );
 
     -- Component 4: Address Base + 4 -> Bits [31-24]
-    RAM_BANK_4: component work.memoriaDados
+    RAM_BANK_4: entity work.memoriaDados
         generic map (addressSize => addressSize, dataSize => dataSize, datFileName => datFileName)
         port map (
             clock  => clock,
@@ -98,7 +98,7 @@ begin
         );
 
     -- Component 5: Address Base + 5 -> Bits [23-16]
-    RAM_BANK_5: component work.memoriaDados
+    RAM_BANK_5: entity work.memoriaDados
         generic map (addressSize => addressSize, dataSize => dataSize, datFileName => datFileName)
         port map (
             clock  => clock,
@@ -109,7 +109,7 @@ begin
         );
 
     -- Component 6: Address Base + 6 -> Bits [15-8]
-    RAM_BANK_6: component work.memoriaDados
+    RAM_BANK_6: entity work.memoriaDados
         generic map (addressSize => addressSize, dataSize => dataSize, datFileName => datFileName)
         port map (
             clock  => clock,
@@ -120,7 +120,7 @@ begin
         );
 
     -- Component 7: Address Base + 7 -> Bits [7-0] (Least Significant Byte)
-    RAM_BANK_7: component work.memoriaDados
+    RAM_BANK_7: entity work.memoriaDados
         generic map (addressSize => addressSize, dataSize => dataSize, datFileName => datFileName)
         port map (
             clock  => clock,

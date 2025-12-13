@@ -8,7 +8,7 @@ TB_DIR = ./tb
 
 FILES = $(shell find $(RTL_DIR) $(TB_DIR) -name "*.vhd")
 
-SIM_TOP = tb_processador
+SIM_TOP = polilegv8_tb
 
 all: compile run
 

@@ -23,8 +23,8 @@ architecture structural of fluxoDados is
     constant ROM_ADDRESS_SIZE : natural := 7;
     constant RAM_ADDRESS_SIZE : natural := 7;
     constant DATA_WORD_SIZE   : natural := 8;
-    constant INITIAL_ROM_DATA : string  := "memInstrPolilegv8.dat";
-    constant INITIAL_RAM_DATA : string  := "memDadosInicialPolilegv8.dat";
+    constant INITIAL_ROM_DATA : string  := "./firmware/memInstrPolilegv8.dat";
+    constant INITIAL_RAM_DATA : string  := "./firmware/memDadosInicialPolilegv8.dat";
 
     -- Internal Signals
 
