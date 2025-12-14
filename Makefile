@@ -86,7 +86,7 @@ add-to-modelsim:
 	@echo "--- Copying TB files to Model Sim ---"
 	@find $(TB_DIR) -name "*.vhd" -exec cp {} $(MODEL_SIM_DIR)/ \;
 	@echo "--- Copying FIRMWARE/MEMORY files to Model Sim ---"
-	@find $(TB_DIR) -name "*.dat" -exec cp {} $(FIRMWARE_DIR)/ \;
+	@find $(FIRMWARE_DIR) -name "*.dat" -exec cp {} $(MODEL_SIM_DIR)/ \;
 	@echo "--- Files copied successfully ---"
 
 clean-modelsim:
