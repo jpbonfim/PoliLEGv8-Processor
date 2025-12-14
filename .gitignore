@@ -9,6 +9,7 @@
 db/
 incremental_db/
 /quartus/
+/model_sim/
 
 # Ignores folder containing project requirements files
 /enunciado/

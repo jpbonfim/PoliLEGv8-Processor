@@ -18,6 +18,12 @@ architecture structural of rom_wrapper_8x4 is
     -- Internal signal for address arithmetic
     signal s_base_addr : unsigned(addressSize-1 downto 0);
     
+    -- Address signals for each bank
+    signal s_addr0 : bit_vector(addressSize-1 downto 0);
+    signal s_addr1 : bit_vector(addressSize-1 downto 0);
+    signal s_addr2 : bit_vector(addressSize-1 downto 0);
+    signal s_addr3 : bit_vector(addressSize-1 downto 0);
+    
     -- Outputs from each memory bank
     signal s_byte0 : bit_vector(dataSize-1 downto 0);
     signal s_byte1 : bit_vector(dataSize-1 downto 0);
@@ -40,6 +46,12 @@ architecture structural of rom_wrapper_8x4 is
 begin
     -- Convert input vector to unsigned for arithmetic
     s_base_addr <= unsigned(addr);
+    
+    -- Calculate addresses for each bank
+    s_addr0 <= bit_vector(s_base_addr);
+    s_addr1 <= bit_vector(s_base_addr + 1);
+    s_addr2 <= bit_vector(s_base_addr + 2);
+    s_addr3 <= bit_vector(s_base_addr + 3);
 
     -- Bank 0: Reads address X (Most Significant Byte - Big Endian)
     ROM_BANK_0: memoriaInstrucoes
@@ -49,7 +61,7 @@ begin
             datFileName => datFileName
         )
         port map (
-            addr => bit_vector(s_base_addr), 
+            addr => s_addr0, 
             data => s_byte0
         );
 
@@ -61,7 +73,7 @@ begin
             datFileName => datFileName
         )
         port map (
-            addr => bit_vector(s_base_addr + 1),
+            addr => s_addr1,
             data => s_byte1
         );
 
@@ -73,7 +85,7 @@ begin
             datFileName => datFileName
         )
         port map (
-            addr => bit_vector(s_base_addr + 2),
+            addr => s_addr2,
             data => s_byte2
         );
 
@@ -85,7 +97,7 @@ begin
             datFileName => datFileName
         )
         port map (
-            addr => bit_vector(s_base_addr + 3),
+            addr => s_addr3,
             data => s_byte3
         );
 

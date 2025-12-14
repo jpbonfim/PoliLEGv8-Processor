@@ -20,6 +20,16 @@ architecture structural of ram_wrapper_8x8 is
 
     -- Signal for address arithmetic
     signal s_base_addr : unsigned(addressSize-1 downto 0);
+    
+    -- Address signals for each bank
+    signal s_addr0 : bit_vector(addressSize-1 downto 0);
+    signal s_addr1 : bit_vector(addressSize-1 downto 0);
+    signal s_addr2 : bit_vector(addressSize-1 downto 0);
+    signal s_addr3 : bit_vector(addressSize-1 downto 0);
+    signal s_addr4 : bit_vector(addressSize-1 downto 0);
+    signal s_addr5 : bit_vector(addressSize-1 downto 0);
+    signal s_addr6 : bit_vector(addressSize-1 downto 0);
+    signal s_addr7 : bit_vector(addressSize-1 downto 0);
 
     -- Original Data Memory Component
     component memoriaDados is
@@ -40,6 +50,16 @@ architecture structural of ram_wrapper_8x8 is
 begin
     -- Converts bit vector to unsigned to sum the bank offset.
     s_base_addr <= unsigned(addr);
+    
+    -- Calculate addresses for each bank
+    s_addr0 <= bit_vector(s_base_addr);
+    s_addr1 <= bit_vector(s_base_addr + 1);
+    s_addr2 <= bit_vector(s_base_addr + 2);
+    s_addr3 <= bit_vector(s_base_addr + 3);
+    s_addr4 <= bit_vector(s_base_addr + 4);
+    s_addr5 <= bit_vector(s_base_addr + 5);
+    s_addr6 <= bit_vector(s_base_addr + 6);
+    s_addr7 <= bit_vector(s_base_addr + 7);
 
     -- Instantiation of the 8 components (Big Endian)
     -- Component 0: Base Address + 0 -> Bits [63-56] (Most Significant Byte)
@@ -48,7 +68,7 @@ begin
         port map (
             clock  => clock,
             wr     => wr,
-            addr   => bit_vector(s_base_addr), -- Address X
+            addr   => s_addr0, -- Address X
             data_i => data_i(63 downto 56),
             data_o => data_o(63 downto 56)
         );
@@ -59,7 +79,7 @@ begin
         port map (
             clock  => clock,
             wr     => wr,
-            addr   => bit_vector(s_base_addr + 1),
+            addr   => s_addr1,
             data_i => data_i(55 downto 48),
             data_o => data_o(55 downto 48)
         );
@@ -70,7 +90,7 @@ begin
         port map (
             clock  => clock,
             wr     => wr,
-            addr   => bit_vector(s_base_addr + 2),
+            addr   => s_addr2,
             data_i => data_i(47 downto 40),
             data_o => data_o(47 downto 40)
         );
@@ -81,7 +101,7 @@ begin
         port map (
             clock  => clock,
             wr     => wr,
-            addr   => bit_vector(s_base_addr + 3),
+            addr   => s_addr3,
             data_i => data_i(39 downto 32),
             data_o => data_o(39 downto 32)
         );
@@ -92,7 +112,7 @@ begin
         port map (
             clock  => clock,
             wr     => wr,
-            addr   => bit_vector(s_base_addr + 4),
+            addr   => s_addr4,
             data_i => data_i(31 downto 24),
             data_o => data_o(31 downto 24)
         );
@@ -103,7 +123,7 @@ begin
         port map (
             clock  => clock,
             wr     => wr,
-            addr   => bit_vector(s_base_addr + 5),
+            addr   => s_addr5,
             data_i => data_i(23 downto 16),
             data_o => data_o(23 downto 16)
         );
@@ -114,7 +134,7 @@ begin
         port map (
             clock  => clock,
             wr     => wr,
-            addr   => bit_vector(s_base_addr + 6),
+            addr   => s_addr6,
             data_i => data_i(15 downto 8),
             data_o => data_o(15 downto 8)
         );
@@ -125,7 +145,7 @@ begin
         port map (
             clock  => clock,
             wr     => wr,
-            addr   => bit_vector(s_base_addr + 7),
+            addr   => s_addr7,
             data_i => data_i(7 downto 0),
             data_o => data_o(7 downto 0)
         );
